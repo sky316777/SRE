@@ -1,6 +1,5 @@
 # Alpine 安裝手冊
 
-黃鉦翔
 
 ---
 Alpine Linux

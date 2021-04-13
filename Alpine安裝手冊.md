@@ -29,8 +29,10 @@ create一個新虛擬機
 ![](https://i.imgur.com/oPAmjoU.png)
 
 
+
 選Linux 3.x kernel 64-bit
 ![](https://i.imgur.com/XDxm0Ec.png)
+
 
 
 
@@ -39,9 +41,12 @@ create一個新虛擬機
 
 
 
+
 設定容量
+
 ***下面記得要選 Single file***
 ![](https://i.imgur.com/7SPe2hm.png)
+
 
 
 
@@ -50,11 +55,16 @@ create一個新虛擬機
 ![](https://i.imgur.com/jq31S5u.png)
 
 
+
+
 左邊沒用的可以刪掉(USB,Sound Card,Printer)
+
 ***記得要選 NAT***
+
 ***記得要放入光碟***
 
 ![](https://i.imgur.com/dKlOCqq.png)
+
 
 
 
@@ -62,10 +72,16 @@ create一個新虛擬機
 ![](https://i.imgur.com/EnAQf3R.png)
 
 
+
+
 ---
+
+
+
 
 登入打 root
 ![](https://i.imgur.com/RcymkZF.png)
+
 
 
 第一步先輸入 setup-alpine
@@ -115,4 +131,11 @@ create一個新虛擬機
 ![](https://i.imgur.com/uv1jxOP.png)
 
 
+下載好了，請重開機
+***重開後一定要退出光碟***
+![](https://i.imgur.com/A3fXPc4.png)
+![](https://i.imgur.com/80wYTxq.png)
+
+
+---
 

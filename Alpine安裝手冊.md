@@ -200,7 +200,12 @@ $ nano /etc/sudoers
 % wheel ALL=(ALL) NOPASSWD: ALL  
 (這行打錯就全部GG了)
 
-$ sudo passwd -dl root   
-(取消 root 帳號)
+$ sudo passwd -dl root     
+(取消 root 帳號)  
+
+$ nano /etc/hosts  
+(修改電腦名稱)  
+
+***完成想設定的之後，記得重新開新***
 
 

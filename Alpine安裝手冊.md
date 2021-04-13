@@ -24,15 +24,16 @@ https://alpinelinux.org/downloads//
 第一步  
 開啟 VMware  
 create一個新虛擬機  
-記得選第三個(之後再設定硬體的選項)  
+記得選第三個(之後再選擇要安裝的映象檔)  
 
 ![](https://i.imgur.com/oPAmjoU.png)
 
 
 ---
-選Linux 3.x kernel 64-bit  
+選Linux 5.x and later kernel 64-bit  
 
-![](https://i.imgur.com/XDxm0Ec.png)
+![](https://i.imgur.com/NAb90ZQ.png)
+
 
 
 ---
@@ -225,6 +226,6 @@ $ sudo passwd -dl root
 $ nano /etc/hosts  
 (修改電腦名稱)  
 
-***完成想設定的之後，記得重新開新***
+***完成想設定的之後，記得重新開機***
 
 

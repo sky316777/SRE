@@ -16,7 +16,7 @@ then
 
 sudo useradd -m -s /bin/bash $var && echo "no 
 
-exit.Help you create one"
+exist.Help you create one"
 
 else
 

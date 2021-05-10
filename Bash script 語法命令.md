@@ -197,7 +197,7 @@ echo "謝謝您的答案"
 :o: **格式一**
 for 變數 in 參數  
 do  
-     statements  
+statements  
 done  
 ```
 bigred@bean:~$ ./in08
@@ -217,7 +217,7 @@ done
 :o: **格式二**  
 for (( 初始值; 限制值; 累進值 ))
 do    
-     statements    
+statements    
 done   
 ```
 bigred@bean:~$ ./for07 10 20
@@ -246,7 +246,7 @@ echo "sum $star 到 $end  總和為$sum"
 :o: **格式一**  
 while [ <some test> ]  
 do  
-<commands>  
+\<commands\>  
 done  
 ```
 #!/bin/bash
@@ -295,7 +295,7 @@ echo "program end"
 :a:   
 cat 檔案 | while read 變數
 do
-<commands>  
+\<commands\>  
 done
 ```
 #!/bin/bash
@@ -312,7 +312,7 @@ exit 0
 :b:     
 while read 變數  
 do  
-<commands>    
+\<commands\>    
 done < 檔案    
 
 ```
@@ -329,7 +329,7 @@ done <  txt01
 :o: **格式二** 
 select variable [in list] ;  
 do  
-    循環體命令  
+循環體命令  
 done  
 ```
 #!/bin/bash
@@ -389,7 +389,7 @@ Echo 結束
 
 
 ---
-### :spiral_note_pad: 綜合範例  
+## 綜合範例  
 ```
 bigred@bean:~$ cat func07  
 cpu()  

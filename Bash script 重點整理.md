@@ -101,7 +101,6 @@ bash: /etc/resolv.conf: Permission denied
 因此，只是echo具有更高的特權，而您的shell卻沒有！
 為了解決這個問題，應該運行以下命令
 echo nameserver 8.8.8.8 | sudo tee /etc/resolv.conf 
-
 ```
 
 

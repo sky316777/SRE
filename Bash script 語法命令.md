@@ -193,9 +193,9 @@ echo "謝謝您的答案"
 
 
 ---
-### :four:  FOR 迴圈  
-:o: **格式一**
-for 變數 in 參數  
+### :four:  FOR 迴圈    
+:o: **格式一**    
+for 變數 in 參數     
 do  
 statements  
 done  

@@ -15,7 +15,7 @@ $ sudo rc-update add docker boot
 $ sudo addgroup bigred docker
 $ sudo  reboot
 ```
-:earth_africa: Docker 指令集  
+:earth_africa: **Docker 指令集**  
 \$ docker info  
 (查看套件資訊)  
 
@@ -64,7 +64,7 @@ docker exec -it c1 sh
 
 
 
-:cd: 關於光碟的指令  
+:cd: **關於光碟的指令**  
 
 \$ docker pull  
 (下載光碟)  
@@ -110,6 +110,104 @@ $ sudo containerd &
 ![](https://i.imgur.com/MRyB5D1.png)  
 
 
+
+---
+## :eagle: 自製網卡  
+```
+$ sudo modprobe tun
+
+$ sudo tunctl -b -u bigred
+tap0
+
+$ ifconfig tap0
+tap0: flags=4098<BROADCAST,MULTICAST>  mtu 1500
+        ether 62:da:85:b2:1f:81  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+```
+***(-b : 創造網路卡，-u : 給專屬的使用者)***  
+
+:+1: **dknet 是老師自己寫的程式(塞網卡用的)**  
+```
+$ mkdir bin
+$ echo $'#!/bin/bash
+[ "$#" != 2 ] && echo "dknet ctn net" && exit 1
+
+ifconfig $2 &>/dev/null
+[ "$?" != "0" ] && echo "$2 not exist" && exit 1
+
+x=$(docker inspect -f \'{{.State.Pid}}\' $1 2>/dev/null)
+[ "$x" == "" ] && echo "$1 not exist" && exit 1
+
+[ ! -d /var/run/netns ] && sudo mkdir -p /var/run/netns
+
+if [ ! -f /var/run/netns/$x ]; then
+   sudo ln -s /proc/$x/ns/net /var/run/netns/$x
+   sudo ip link set $2 netns $x
+fi
+
+exit 0
+' > bin/dknet ; chmod +x bin/dknet
+
+```
+### :yin_yang: 給虛擬網卡(真實網卡)  
+```
+$ docker run --rm --name d1 --cap-add=NET_ADMIN --net='none'  -itd busybox  sh
+3879c04ac6435e5cd0a64effdc5843bce57c3b1e4f277722806f622af53d4425
+
+將 tap0 網卡加入 d1 貨櫃主機的 Network Namespace
+$ dknet d1 tap0(eth0)
+
+在 ctn 主機中,  此時看不到 tap0 網卡
+$ ifconfig tap0(eth0)
+tap0: error fetching interface information: Device not found
+
+$ docker exec -it d1 sh
+/ # ifconfig -a
+tap0      Link encap:Ethernet  HWaddr 00:0C:29:4A:69:10  
+          BROADCAST MULTICAST  MTU:1500  Metric:1
+          RX packets:658 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:213 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:747802 (730.2 KiB)  TX bytes:28428 (27.7 KiB)
+
+lo        Link encap:Local Loopback  
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+
+[重要] ifconfig 必須有 "-a" 參數才能看到 tap0 
+```
+***(給真實網卡的話一開始就不用自己製作囉^^)***
+
+### :black_square_button: 設定網卡資訊  
+```
+/ # ifconfig  tap0(eth0)  192.168.55.66  netmask  255.255.255.0
+/ # ifconfig tap0(eth0)
+tap0    Link encap:Ethernet  HWaddr FA:3D:33:4F:2B:AC  
+          inet addr:192.168.55.66  Bcast:192.168.55.255  Mask:255.255.255.0
+          UP BROADCAST MULTICAST  MTU:1500  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+/ # route add default gw 192.168.55.1
+/ # exit
+
+$ docker rm -f d1
+
+[註] 移除 d1貨櫃主機, 被獨佔的網卡, 會一並被刪除  
+
+```
 
 ---
 ### :b: Runc  

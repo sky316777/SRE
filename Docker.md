@@ -209,12 +209,12 @@ $ sudo containerd &
 ---
 ### :b: Runc  
 ![](https://i.imgur.com/9s0INUH.png)  
+
+:arrow_right: 下載 runc 且因為 runc 命令內定執行帳號為 root, 而 rootfs 目錄的 Owner 是 bigred, 所以需將 rootfs 目錄的 owner 改為 root  
 ```
 $ sudo apk update &>/dev/null ; sudo apk add runc  
-$  sudo chown root:root -R rootfs/
+$ sudo chown root:root -R rootfs/
 ```
-因 runc 命令內定執行帳號為 root, 而 rootfs 目錄的 Owner 是 bigred, 所以需將 rootfs 目錄的 owner 改為 root  
-
 :arrow_right: 產生 OCI 標準的 Container 設定檔  
 ![](https://i.imgur.com/SyeqKEc.png)  
 

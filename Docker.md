@@ -20,16 +20,16 @@ $ sudo reboot
 (查看套件資訊)  
 
 \$ docker run  
-\( 產生 containd )  
+\( 產生 container )  
 參數 :  
 \-d : 背景執行  
-\-h : containd 電腦名稱  
+\-h : container 電腦名稱  
 \-m : 限制記憶體  
 \-f : 在前景執行(在指令裡面打的)  
 \-it : 產生終端機(有貝殼程式就一定要有)  
 \- -net : 設定使用的網型態  
-\- -rm : containd 停止後立即自動刪除  
-\- -name : 給 containd 的名字   
+\- -rm : container 停止後立即自動刪除  
+\- -name : 給 container 的名字   
 \- -cpus : 設定只能使用幾 % 的 cpu  
 \- -cpuset-cpus : 設定使用的 core  
 ```
@@ -37,25 +37,28 @@ $ docker run --rm --name c1 --cpuset-cpus="1" --cpus="0.2"  -itd  busybox  yes
 ```
 
 \$ docker ps -a   
-(查看所有 containd 狀況)  
+(查看所有 container 狀況)  
 
-\$ docker start  
-(啟動 containd )   
+\$ docker start cname  
+(啟動 container )    
 
-\$ docker stop  
-(停止 containd )  
+\$ docker stop cname  
+(停止 container )  
 
-\$ docker rm  
-(刪除 containd ，-f 為強制刪除)  
+\$ docker rm cname  
+(刪除 container ，-f 為強制刪除)  
 
-\$ docker rmi  
+\$ docker rmi imgname  
 (刪除 image 檔)  
 
-\$ docker stats  
-(查看 containd 檔使用資源)  
+\$ docker stats cname  
+(查看 container 檔使用資源)  
+
+\$ docker update -m 896m m1  
+(可動態改變 Container 記憶體限制)  
 
 \$ docker exec  
-(對自己存在的 containd 下達指令)  
+(對自己存在的 container 下達指令)  
 ```
 docker exec c1 hostname -i
 docker exec -it c1 sh

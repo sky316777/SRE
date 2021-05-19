@@ -96,22 +96,6 @@ docker exec -it c1 sh
 ![](https://i.imgur.com/yaeaFCg.png)  
 
 
----
-
-### :a: Containerd  
-![](https://i.imgur.com/EAvNbGI.png)  
-```
-$ sudo apk add containerd
-$ containerd -v
-$ sudo containerd &
-```
-(下載containerd，查看版本，背景執行)  
-
-![](https://i.imgur.com/MRyB5D1.png)  
-
-
-
----
 ## :eagle: 自製網卡  
 ```
 $ sudo modprobe tun
@@ -208,6 +192,19 @@ $ docker rm -f d1
 [註] 移除 d1貨櫃主機, 被獨佔的網卡, 會一並被刪除  
 
 ```
+---
+### :a: Containerd  
+![](https://i.imgur.com/EAvNbGI.png)  
+```
+$ sudo apk add containerd
+$ containerd -v
+$ sudo containerd &
+```
+(下載containerd，查看版本，背景執行)  
+
+![](https://i.imgur.com/MRyB5D1.png)  
+
+
 
 ---
 ### :b: Runc  
@@ -221,7 +218,7 @@ $  sudo chown root:root -R rootfs/
 :arrow_right: 產生 OCI 標準的 Container 設定檔  
 ![](https://i.imgur.com/SyeqKEc.png)  
 
-:arrow_right: 建立 bb8 containd  
+:arrow_right: 建立 名為 bb8 的 containd  
 ```
 $ sudo runc run bb8
 ```

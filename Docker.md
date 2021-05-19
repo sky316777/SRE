@@ -5,6 +5,8 @@
 ![](https://i.imgur.com/DMoTc40.png)  
 
 ---
+
+[1.自製網卡](https://github.com/sky316777/work/blob/main/Docker.md#eagle-%E8%87%AA%E8%A3%BD%E7%B6%B2%E5%8D%A1)
 ## :ab: 實作Docker   
 ```
 $ sudo apk add docker
@@ -13,7 +15,7 @@ $ sudo apk add docker
 ```
 $ sudo rc-update add docker boot  
 $ sudo addgroup bigred docker
-$ sudo  reboot
+$ sudo reboot
 ```
 :earth_africa: **Docker 指令集**  
 \$ docker info  
@@ -98,14 +100,14 @@ docker exec -it c1 sh
 
 ---
 
-### :a: Containd  
+### :a: Containerd  
 ![](https://i.imgur.com/EAvNbGI.png)  
 ```
 $ sudo apk add containerd
 $ containerd -v
 $ sudo containerd &
 ```
-(下載containd，查看版本，背景執行)  
+(下載containerd，查看版本，背景執行)  
 
 ![](https://i.imgur.com/MRyB5D1.png)  
 

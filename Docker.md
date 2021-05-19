@@ -5,8 +5,6 @@
 ![](https://i.imgur.com/DMoTc40.png)  
 
 ---
-
-[1.自製網卡](https://github.com/sky316777/work/blob/main/Docker.md#eagle-%E8%87%AA%E8%A3%BD%E7%B6%B2%E5%8D%A1)
 ## :ab: 實作Docker   
 ```
 $ sudo apk add docker

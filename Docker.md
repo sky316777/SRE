@@ -25,14 +25,14 @@
 
 ### Docker 運作架構解說 :  
 Docker image center  
-1. pull: 從光碟小舖download docker image (CD)  
+1. pull : 從光碟小舖download docker image (CD)  
 2. runC 產生container  
 3. 變成一台電腦，運作  
-4. commit: 燒成光碟  
-5. push: 上傳到docker的光碟片中心(備份)  
+4. commit : 燒成光碟  
+5. push : 上傳到docker的光碟片中心(備份)  
 
-*backup.tar: 有些公司無法讓員工上網，所以無法連上網到docker光片中心，所以先把檔案save成tar檔，放入USB後讓企業內部用load還原變成image，做光碟片的分享  
-*Dockerfile: 如何做出光碟片的步驟
+*backup.tar : 有些公司無法讓員工上網，所以無法連上網到docker光片中心，所以先把檔案save成tar檔，放入USB後讓企業內部用load還原變成image，做光碟片的分享  
+*Dockerfile : 如何做出光碟片的步驟
 
 ---
 
@@ -47,7 +47,7 @@ Docker image center
 8. Docker
 9. Docker 橋接網路  
 10. Dockerfile  
-11. Docker Container的備份與還原  
+11. Docker 的備份與還原  
 
 
 ---
@@ -115,13 +115,13 @@ rm: can't remove '/proc/meminfo': Permission denied
 **用來隔離不同 Container 的執行空間**
 
 :star: 要做出namespace需要有以下隔離技術:  
-cgroup
-ipc(inter process communication): container之間的溝通管道(透過記憶體)  
+cgroup  
+ipc(inter process communication) : container之間的溝通管道(透過記憶體)  
 mnt(mount)  
-net: 自己獨立的網路系統  
-pid: 自己的process系統  
-user: chroot的帳號自己獨立作業  
-uts: hostname  
+net : 自己獨立的網路系統  
+pid : 自己的process系統  
+user : chroot的帳號自己獨立作業  
+uts : hostname  
 
 sudo unshare  
 參數 :  
@@ -269,7 +269,7 @@ drwxr-sr-x 12 bigred bigred 4096 Apr 29 23:12 ..
 
 1. 控制群組使用memory的資源  
 \$ sudo mkdir /sys/fs/cgroup/memory/demo    
- **(以下重要)**  
+(以下重要)  
 ```
 $ nano memlimit.sh   
 #!/bin/bash  
@@ -284,8 +284,8 @@ $ ./memlimit.sh 82m
 100000000單位bytes，接近100m  
 -c: 一次顯示一個字元  
 /dev/zreo : 一直丟零出來  
-tail: 接收到enter[13]才會結束   
-82m: 代表在跑這一支程式時會被霸占大約82m的記憶體  
+tail : 接收到enter[13]才會結束   
+82m : 代表在跑這一支程式時會被霸占大約82m的記憶體  
 
 2. 控制群組使用cpu的資源   
  \$ cat /sys/fs/cgroup/cpu/cpu.shares  
@@ -493,8 +493,8 @@ $ curl http://172.17.0.2:8888
 $ docker rm -f testa1
 ```
 參數說明:  
--f: container在背景，container process一定要在前景執行第一支程式  
-查IP: docker exec -it container名字 hostname -i  
+-f : container在背景，container process一定要在前景執行第一支程式  
+查IP : docker exec -it container名字 hostname -i  
 
 
 ```
@@ -595,8 +595,8 @@ tap0: flags=4098<BROADCAST,MULTICAST>  mtu 1500
 
 ```
 參數說明:  
--b: 創造網路卡  
--u: 給專屬的使用者  
+-b : 創造網路卡  
+-u : 給專屬的使用者  
 
 :+1: **撰寫 dknet 程式:**  
 ```
@@ -706,36 +706,38 @@ ls: /password.txt: No such file or directory
 前面已經有刪除指令，但是password.txt還在!
 ```
 參數說明:  
-no-cache : 從(官網)網路上下載完不會做暫存，若不加此指令則機器會存有舊的光碟片，日後光碟片有更新，機器還是會用舊的。  
+no-cache : 從(官網)網路上下載完不會做暫存，若不加此指令則機器會存有舊的光碟片，日後光碟片有更新，機器還是會用舊的光碟片先去抓。  
 \-t : 命名  
-\. : 在當前目錄找 Dickerfile  
-
+**.** : 在當前目錄找 Dickerfile  
 
 ---
 
 ## Docker image 目錄結構  
 ![dir](https://i.imgur.com/WsUCu24.png)  
 
-**架構解說 :**   
-Docker file 的內容，會有很多資料夾(一個指令產生一個)  
+### 架構解說 :   
+左邊是Docker file 的內容，會有很多資料夾(一個指令產生一個)  
 FROM : 產生container  
-Java 開發平台的相依檔 : openjdk版本8，這樣在alpine就可以使用java application  
+Java 開發平台的相依檔 : openjdk版本8(這樣在alpine就可以使用java application)  
 ARG : 宣告變數，下參數  
 COPY : 從 linux 中 copy 到 CD 中  
 \.jar : java application  
 ECTRYPOINT 啟動光碟片 : “java”平台 “-java”參數 “/app.jar”應用程式  
-final docker image: lower資料夾可以掛載多個資料夾, 從Docker image來  
 
-*今天在運作 container 的時候會，有一個空資料夾(merged)讓 overlay2 可以 mount 進去 Image (資料夾)會堆疊在 overlay2的 Lower (可以看到所有的檔案)；Upper 給 container 使用(R+W)  
+右邊final docker image: lower資料夾可以掛載多個資料夾, 從Docker image來  
+**今天在運作 container 的時候會，有一個空資料夾(merged)讓 overlay2 可以 mount 進去 Image (資料夾)會堆疊在 overlay2的 Lower (可以看到所有的檔案)；Upper 給 container 使用(R+W)**  
 Container 的檔案系統為被 overlay2 覆蓋的 merged  
 
 ### 研究 Docker image  
+(每一個 image 檔都有製作的紀錄，所以之後要把光碟做消磁)  
 ```
 $ docker save myring > myring.tar
 
 $ mkdir imglayers; tar -xf myring.tar -C imglayers/
 
 $ tree imglayers/
+(tree看到的是Docker image結構)
+
 imglayers/
 ├── 579fb4fe2cc21a56bb5518ce0e55a8150ed388221deefb09657948ec5d3bfd79
 │   ├── VERSION
@@ -753,7 +755,12 @@ imglayers/
 ├── manifest.json
 └── repositories
 
+
+$ sudo apk add jq
+(沒jq套件的話，記得要載)
 $ cat imglayers/manifest.json | jq
+(Json檔會記錄dockerfile all command)
+
 [
   {
     "Config": "97f72354b5a6c180f16ebf83b43d4ba876c0c70ae99bde2a06a1fefaaafb8cf4.json",
@@ -767,10 +774,9 @@ $ cat imglayers/manifest.json | jq
     ]
   }
 ]
-(沒jq套件的話，記得要載)
-(Json檔會記錄dockerfile all command)
 
-$ cat imglayers/599588866dbf2a29d2a3a39587f6d65994c86566af280150dfe09767cba41389.json | jq
+
+$ cat imglayers/"97f72354b5a6c180f16ebf83b43d4ba876c0c70ae99bde2a06a1fefaaafb8cf4.json" | jq
 {
   .......
   "history": [
@@ -796,6 +802,7 @@ $ cat imglayers/599588866dbf2a29d2a3a39587f6d65994c86566af280150dfe09767cba41389
 ```
 ### 檢視 Docker image Layer 0 & 1 & 2 內容
 ```
+(檢視 Docker image Layer 0 內容)
 $ mkdir rootfs; tar -xf imglayers/579fb4fe2cc21a56bb5518ce0e55a8150ed388221deefb09657948ec5d3bfd79/layer.tar -C rootfs
 
 $ tree -L 1 rootfs
@@ -818,11 +825,14 @@ rootfs
 ├── usr
 └── var
 
+
+(檢視 Docker image Layer 1 & 2 內容)
 $ tar -xf imglayers/763a169d6c4ed9a83f2ef9f0b0b79b112303a53c4f778fc78261570eeab9f32f/layer.tar -C rootfs
 
 $ ls -al rootfs/password.txt
 -rw-r--r-- 1 bigred bigred 11 May 11 23:50 rootfs/password.txt
 (前面已經有刪除指令,但是password.txt還在!)
+
 $ tar -xf imglayers/c724281fbd49291c1338e29e87fb2cb514dfb8e97aabf4f351819ea2683ab2c6/layer.tar -C rootfs
 
 $ find rootfs -name '*.txt'
@@ -830,7 +840,7 @@ rootfs/password.txt
 rootfs/.wh.password.txt
 (.wh.=white out 立可白檔,隱藏後方的檔案(password.txt))
 ```
-:+1: 如果改成以下寫法，則在 docker image 裡不會產生資料夾，換句話說，docker image 不會產生空白的資料夾。  
+:arrow_right: 如果改成以下寫法，則在 docker image 裡不會產生資料夾，換句話說，docker image 不會產生空白的資料夾  
 ```
 $ echo 'FROM alpine
 RUN echo “top.secret” > /password.txt && rm /password.txt
@@ -857,15 +867,18 @@ func main() {
 
 $ go mod init mygo
 (啟動相依檔, 把 Golang 當作第一支執行的程式)
+
 $ CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o main
 ```
-架構說明 :  
+參數說明 :  
 package main 程式的相依檔:  
-fmt: format 顯示格式的套件  
-log: 記錄所有命令  
-net: 要可以執行httpd  
+fmt : format 顯示格式的套件  
+log : 記錄所有命令  
+net : 要可以執行httpd  
 func main : 從此處開始執行  
+“/” : 使用者只要打 / 就會執行handler程式  
 mod = module  
+
 
 ### 自製原生 Docker Image  
 ```
@@ -887,12 +900,187 @@ $ docker images
 REPOSITORY    TAG         IMAGE ID            CREATED             SIZE
 goweb             latest       7f9652539fc0      14 minutes ago    6.13MB
 ```
-架構說明 :  
-main : 翻譯好的 go lang application(含有相依檔，自走砲)，可以將這個檔案SCP到其他台電腦，就可以在別台使用了  
+參數說明 :  
+main : 翻譯好的 go lang application(含有相依檔，自走砲)，可以將這個檔案SCP到其他台電腦，就可以在別台使用  
 scratch : 空白光碟片  
 ADD : 把已經有的檔案 copy 到指定的目錄  
 CMD : 只要沒給命令內定就跑 go application  
-(如果要推光碟小舖，記得光碟名要取 : 小舖名稱ㄥ)
+
+若要將這一份CD推到光碟小舖，準備好CD之後 :  
+```
+$ docker build -t 光碟小舖名/goweb  .  
+$ docker login  
+$ docker push 光碟小舖名/goweb  
+$ docker logout  
+```
+
+### Multi-stage builds Docker Image
+```
+(列出go與alpine結合的版本)
+$ dktag golang | grep -E "^1.1.-*alpine$"
+......
+1.15-alpine
+1.16-alpine
+
+(golang:1.14-alpine AS build = 這個光碟的名字)
+$ echo 'FROM golang:1.14-alpine AS build
+WORKDIR /src/
+COPY main.go /src/
+RUN go mod init mygo && CGO_ENABLED=0 go build -o /bin/demo
+
+FROM scratch
+COPY --from=build  /bin/demo  /bin/demo
+ENTRYPOINT ["/bin/demo"] ' > Dockerfile
+(Entrypoint=後面不可以打命令，只能執行光碟內的命令(["/bin/demo"]))
+
+$ docker build -t goweb .
+$ docker images
+REPOSITORY    TAG               IMAGE ID            CREATED                  SIZE
+goweb              latest            a356ba6caa9e     7 seconds ago          7.41MB
+golang             1.14-alpine     285e050bfca6     2 days ago               370MB
+```
+:arrow_right: 載第一片光碟目的是把 main.go 程式以及相依檔打包並翻譯後建立build光碟，再利用第二片空光碟複製build裡的內容再倒入至Dockerfile。  
 
 
+---
+
+## Docker Image 內定的執行命令  
+Docker 的 server 都在前景 run , 傳統 server 都在背景執行居多  
+CMD : 執行內定命令  
+Entrypoint : 後面不可以打命令，只能執行光碟內的命令  
+docker history : 查看這個光碟中的指令(秘密)  
+
+```
+$  docker run --rm -it alpine
+/ # ps
+PID   USER     TIME  COMMAND
+    1 root      0:00 /bin/sh
+    7 root      0:00 ps
+/ # exit
+
+上述命令中，不需指定執行命令一樣可以啟動貨櫃主機，請問內定執行命令為何 ?
+(使用 docker history 命令得知 Docker Image 內定執行命令)
+
+$ docker history alpine
+IMAGE         CREATED       CREATED BY                           SIZE
+3fd9065eaf02  4 months ago  /bin/sh -c #(nop) CMD ["/bin/sh"]   0B                  
+<missing>     4 months ago  /bin/sh -c #(nop) ADD file:093f0…    4.15MB              
+```
+
+### 撰寫 alpine.base Dockerfile  
+```
+$ cd ~/wulin; mkdir base
+
+(下載原廠光碟片一定要鎖版本代號，寫dockerfile run linux command用一個run就好, 才不會產生太多資料夾)
+$ echo 'FROM alpine:3.13.4
+RUN apk update && apk upgrade && apk add --no-cache nano sudo wget curl \
+    tree elinks bash shadow procps util-linux coreutils binutils findutils grep && \
+    wget https://busybox.net/downloads/binaries/1.28.1-defconfig-multiarch/busybox-x86_64 && \
+    chmod +x busybox-x86_64 && mv busybox-x86_64 bin/busybox1.28 && \
+    mkdir -p /opt/www && echo "let me go" > /opt/www/index.html
+
+CMD ["/bin/bash"] ' > base/Dockerfile
+(mv busybox-x86_64 bin/busybox1.28把busybox-x86_64移動並改名叫做bin/busybox1.28，原本bin下面還是有busybox，並沒有覆蓋原始檔喔!)
+
+(建立 alpine.base image)
+$ docker build --no-cache  -t alpine.base base/
+
+(執行 alpine.base image 內定命令)
+$ docker run --rm -it alpine.base
+bash-5.0# /bin/busybox1.28 | head -n 1
+BusyBox v1.28.1 (2018-02-15 14:34:02 CET) multi-call binary.
+
+bash-5.0# /bin/busybox | head -n 1
+BusyBox v1.30.1 (2019-06-12 17:51:55 UTC) multi-call binary.
+
+bash-5.0# busybox httpd -h /opt/www
+httpd: applet not found
+
+(1.28.1是busybox有httpd的版本，所以才沒有跳錯誤)
+bash-5.0# busybox1.28 httpd -h /opt/www
+bash-5.0# curl http://localhost
+let me go
+
+bash-5.0# exit
+exit
+```
+
+### 自製 Alpine OpenSSH Server 的 Docker Image
+```
+$ cd ~/wulin; mkdir plus
+
+(FROM前面建立的alpine.base image)
+$ echo $' 
+FROM alpine.base
+RUN apk update && \
+    apk add --no-cache openssh-server tzdata && \
+    # 設定時區 (Alpine image時區要設定成與台灣同步)
+    cp /usr/share/zoneinfo/Asia/Taipei /etc/localtime && \
+    ssh-keygen -t rsa -P "" -f /etc/ssh/ssh_host_rsa_key && \
+    echo -e \'Welcome to Alpine 3.13.4\\n\' > /etc/motd && \ 
+    # 建立管理者帳號 bigred   
+    adduser -s /bin/bash -h /home/bigred -G wheel -D bigred && echo \'%wheel ALL=(ALL) NOPASSWD: ALL\' >> /etc/sudoers && \
+    echo -e "bigred\\nbigred\\n" | passwd bigred &>/dev/null && [ "$?" == "0" ] && echo "bigred ok"
+ 
+EXPOSE 22
+(openssh國際標準port號是22)
+ 
+ENTRYPOINT ["/usr/sbin/sshd"]
+CMD ["-D"] ' > plus/Dockerfile
+(CMD: 對entrypoint做參數設定  
+sshd內定背景執行，要拉到前景執行-D)
+
+
+$ docker build --no-cache  -t alpine.plus plus/
+$ docker run  --rm --name s1 -h s1 -d -p 22100:22 alpine.plus
+
+登入 s1 貨櫃主機
+$ ssh bigred@localhost -p 22100
+bigred@192.168.122.47's password: bigred
+
+$ ps aux
+USER        PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root          1  0.3  0.0   4328  2944 pts/0    Ss+  09:11   0:00 /usr/sbin/sshd -D
+root          9  0.1  0.0   4356  3500 ?        Ss   09:12   0:00 sshd: bigred [priv]
+bigred       11  0.0  0.0   4356  2340 ?        R    09:12   0:00 sshd: bigred@pts/1
+........
+```
+
+---
+
+## Docker container 備份與還原 (消磁)
+```
+$ docker run --name s2 -h s2 -d alpine.plus
+6e52bd5aee18c0aed8dbb17920037be0b9109158329b401c56b4f64417c2d784
+(使用上述命令建立 s2 Container，這個 Container 有啟動 openssh server，所以這個 Container 有 openssh 的執行狀態資訊檔，這時使用 docker export 命令 
+匯出的 Tar 檔中就會有殘留 openssh 的執行暫存檔，以至後續做出的 image 無法啟動 openssh server，所以必須先關閉 s2 container，才可備份此 container)
+
+$ docker stop s2             
+$ docker export s2 > s2.tar
+(把container export成tar檔做備份)
+
+$ docker rm s2 && docker rmi alpine.plus
+$ cat s2.tar | docker import - alpine.plus &>/dev/null
+( - 標準輸入Import成image檔(光碟))
+
+
+$ docker history alpine.plus
+(history空空如也)
+IMAGE               CREATED             CREATED BY   SIZE           COMMENT
+00a487305c5b   12 seconds ago                          44.3MB       Imported from -
+
+$ docker run --name s2 -h s2 -d alpine.plus
+(沒有CMD&指令(process), 所以無法開機)
+docker: Error response from daemon: No command specified.
+See 'docker run --help'.
+
+(重製後的 alpine.plus image 必須指定 執行命令)
+$ docker run --name s2 -h s2 -d alpine.plus /usr/sbin/sshd -D
+
+$ docker ps -a
+CONTAINER ID        IMAGE               COMMAND               CREATED             STATUS              PORTS               NAMES
+d4f93f15556c        alpine.plus         "/usr/sbin/sshd -D"   5 seconds ago       Up 3 seconds                            s2
+
+$ docker rm -f s2
+```
 

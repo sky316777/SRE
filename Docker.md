@@ -135,7 +135,7 @@ sudo unshare
 $ sudo unshare --pid --fork --mount-proc --uts -R r2d2/rootfs sh
 ```
 
-**ps所有命令資料一定都從/proc(存在記憶體)來的**，雖然啟用 PID Namespace，ps 命令還是會看到Host (ctn)的所有 Process 資訊，這是因爲/proc的資料夾還在bigred裡面, 並不是在root，代表process的資訊並沒有被隔離出來喔!  
+**ps 所有命令資料一定都從 /proc(存在記憶體)來的**，雖然啟用 PID Namespace，ps 命令還是會看到Host (ctn)的所有 Process 資訊，這是因爲/proc的資料夾還在bigred裡面, 並不是在root，代表process的資訊並沒有被隔離出來喔!  
 ```
 $ sudo unshare --pid --fork --uts sh
 $ pstree -p 
@@ -157,7 +157,7 @@ init(1)-+-acpid(4048)
 ---
 
 ## chroot (設給program)  
-舊名sandbox(沙箱)，**針對執行bin/bash程式的目錄，改變它的根目錄**  
+舊名sandbox(沙箱)，**針對執行 bin/bash 程式的目錄，改變它的根目錄**  
 
 1.  mkdir rootfs; cd rootfs; curl -s -o alpine.tar.gz http://dl-cdn.alpinelinux.org/alpine/v3.13/releases/x86_64/alpine-minirootfs-3.13.4-x86_64.tar.gz;  
 :arrow_right: 創造一個資料夾 rootfs，然後在裡面下載 alpine 根目錄下的所有檔案  
@@ -179,9 +179,10 @@ whoami: unknown uid 1000
 adduser: permission denied (are you root?)
 @lcs016:/$ exit
 ```
-:arrow_right: 這代表說chroot中根本沒有bigred這個名字，所以系統先發一個noname給這個使用者。隨意登入的使用者是不能新增使用者的，要先用root權限登入創造這個bigred名字的使用者, 這樣下這行指令系統才能真的對應到  
+:arrow_right: 這代表說 chroot 中根本沒有 bigred 這個名字，所以系統先發一個 noname 給這個使用者。隨意登入的使用者是不能新增使用者的，要先用 root 權限登入創造這個 bigred 名字的使用者, 這樣下這行指令系統才能真的對應到  
 參數解說:  
---userspec : 指定使用者的參數  
+\- -userspec : 指定使用者的參數  
+
 :warning:  **進去後會沒有使用者，因為是在 rootfs 資料夾裡原始的 alpine  
 所以記得要先進去使用 root 權限創造你要的使用者**  
 ```
@@ -221,8 +222,8 @@ $ echo "I'm from upper!" > upper/in_both.txt
 ```
  
 2. \$ sudo mount -t overlay overlay -o lowerdir=/home/bigred/lower,upperdir=/home/bigred/upper,workdir=/home/bigred/work  /home/bigred/merged  
-**(mount -t overlay : 掛載三個資料夾到merged，wokdir: 運作時的工作目錄，上下兩層的暫存區)**  
-3.  **發現both其實是看到upper的，因為lower的被擋住了**  
+**(mount -t overlay : 掛載三個資料夾到 merged，wokdir: 運作時的工作目錄，上下兩層的暫存區)**  
+3.  **發現 both 其實是看到 upper 的，因為 lower 的被擋住了**  
 ```
 $ cat merged/in_both.txt  
 I'm from upper!  
@@ -236,7 +237,7 @@ $ ls -l \*/new_file
 -rw-r--r-- 1 bigred bigred 9 Apr 29 23:16   upper/new_file  
 ```
   
-5. 刪掉 both後會發現，**merged 的確實被刪掉，因為刪的both是來自upper的檔案**，該檔案敘述變成C，表示檔案已經被刪掉, 但是系統還是會顯示；**lower 的both還會存在，因為該檔案是read only**  
+5. 刪掉 both後會發現，**merged 的確實被刪掉，因為刪的 both 是來自 upper 的檔案**，該檔案敘述變成C，表示檔案已經被刪掉, 但是系統還是會顯示；**lower 的 both 還會存在，因為該檔案是read only**  
 
 ```
 \$ rm merged/in_both.txt  
@@ -264,8 +265,8 @@ drwxr-sr-x 12 bigred bigred 4096 Apr 29 23:12 ..
 ---
 
 ## cgroup  
-**用來限制process的運算資源，分配資源(cpu,core,memory)**  
-**(在cgroup之下創建的目錄會繼承上一層目錄的資料)**
+**用來限制 process 的運算資源，分配資源(cpu,core,memory)**  
+**(在 cgroup 之下創建的目錄會繼承上一層目錄的資料)**
 
 1. 控制群組使用memory的資源  
 \$ sudo mkdir /sys/fs/cgroup/memory/demo    
@@ -280,12 +281,12 @@ cat /dev/zero | head -c $1 | tail
 
 $ ./memlimit.sh 82m  
 ```
-參數解說:  
-100000000單位bytes，接近100m  
--c: 一次顯示一個字元  
+參數解說 :  
+100000000 單位bytes，接近 100m  
+\-c: 一次顯示一個字元  
 /dev/zreo : 一直丟零出來  
-tail : 接收到enter[13]才會結束   
-82m : 代表在跑這一支程式時會被霸占大約82m的記憶體  
+tail : 接收到 enter[13] 才會結束   
+82m : 代表在跑這一支程式時會被霸占大約 82m 的記憶體  
 
 2. 控制群組使用cpu的資源   
  \$ cat /sys/fs/cgroup/cpu/cpu.shares  

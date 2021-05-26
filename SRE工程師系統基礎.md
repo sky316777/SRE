@@ -98,7 +98,8 @@ sticky=1**
 
 
 #### ( A ) setuid
-當一個可執行文件啟動時, 不會以啟動它的用戶的權限運行, 而是以該文件所有者的權限運行 >>>掠奪使用者權限
+當一個可執行文件啟動時, 不會以啟動它的用戶的權限運行, 而是以該文件所有者的權限運行 >>掠奪使用者權限  
+所以，如果在一個可執行文件上設置了setuid，並且該文件由root擁有，當一個普通用戶啟動它時，它將以root權限執行。顯然，如果setuid使用不當的話，會帶來潛在的安全風險。  
 
 ex. desktop建立一個檔案, 但若把某指令的執行權限setuid, 之後用該指令權限執行的程式owner會更改。
 ![uid](https://i.imgur.com/1RqpUyh.jpg)
@@ -267,7 +268,11 @@ nil : 空值
 
 **sticky = 1** : 它對文件沒有影響，但當它在目錄上使用時，所述目錄中的所有文件只能由其所有者刪除或移動。  
 
-**umask** : 跟 chmod 相反，在666基礎上檔案;及在777基礎上減少目錄權限。  
+**umask** : umask的用法與chmod相反，chmod是在「000」上面「增加」權限，而umask則是在「666」基礎上「減少」檔案權限; 以及在「777」基礎上「減少」目錄權限。  
+例如:  
+\$ umask 004 # 就是將others的r權限移除  
+\$ umask 022 # 就是將group和others的w權限移除  
+\$ umask 111 # 就是將owner, group和others的x權限移除  
 
 ```
 $ echo  'package main
@@ -337,7 +342,7 @@ $ sudo setcap  cap_setuid+ep  /home/rbean/python3
 $ exit
 
 
-(列出有設定 Linux capabilities 的所有命令，從根目錄開始掃一遍哪些有被設定capabilities)
+(列出有設定 Linux capabilities 的所有命令，從根目錄開始掃一遍哪些有被設定 capabilities)
 $ getcap -r / 2>/dev/null
 /home/rbean/python3 = cap_setuid+ep
 /bin/ping = cap_net_raw+ep

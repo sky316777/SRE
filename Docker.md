@@ -494,8 +494,9 @@ $ curl http://172.17.0.2:8888
 $ docker rm -f testa1
 ```
 參數說明:  
--f : container在背景，container process一定要在前景執行第一支程式  
-查IP : docker exec -it container名字 hostname -i  
+-d : container在背景執行
+-f : container process一定要在前景執行(第一支程式)  
+**查IP : docker exec -it container名字 hostname -i**  
 
 
 ```
@@ -1048,6 +1049,16 @@ bigred       11  0.0  0.0   4356  2340 ?        R    09:12   0:00 sshd: bigred@p
 ```
 
 ---
+## Docker Image 備份與還原
+```
+若無法從光片中心下載光碟，先在rbean備份alpine的images檔  
+\$ docker save alpine > alpine.tar  
+
+再登入gbean後  
+\$ docker load < /home/rbean/nginx.tar  
+確認光碟已導入至gbean中  
+\$ docker images  
+```
 
 ## Docker container 備份與還原 (消磁)
 ```

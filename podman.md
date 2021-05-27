@@ -4,9 +4,9 @@
 ---
 ![podman](https://i.imgur.com/gGgXmK8.png)  
 
-### podman 運作架構解說  
+### podman 運作架構解說:  
 **podman 是 program 不是daemon(一直在背景執行)執行後變process**  
-* 透過skopeo抓images檔(可以處理很多不同版本)  
+* 透過skopeo抓images檔 **(可以處理很多不同版本)**  
 有2派: Docker or OCI組織  
 * buildah 執行 Dockerfile (做成image)  
 * 產生 container  
@@ -45,7 +45,7 @@ $ sudo apt update; sudo apt install podman -y
 
 ```
 
-**Docker 只能用docker的光片中心;
+**Docker 只能用docker的光片中心;  
 Podman 透過skopeo都可以用各種不同的images**
 ```
 $ sudo nano /etc/containers/registries.conf
@@ -77,7 +77,7 @@ $ sudo nano /etc/containers/registries.conf.d/000-shortnames.conf
 ```
 
 ```
-(同docker run功能，後面接光碟片name，這是podman的test command, 看能否正常建立container)  
+(同docker run功能，後面接光碟片name，這是podman的test command，看能否正常建立container)  
 $ podman run hello-world
 Resolved "hello-world" as an alias (/etc/containers/registries.conf.d/000-shortnames.conf)
 Trying to pull docker.io/library/hello-world:latest...
@@ -277,11 +277,13 @@ html nginx 是imges檔
 
 :arrow_right: 用bigred創造rbean/gbean後登入，
 現在登入gbean打指令  
-**(切換使用者不可以用su gbean，因為這個指令不會跑/etc/profile，要用exit再重新ssh gbean)**
+**(切換使用者不可以用su gbean，因為這個指令不會跑/etc/profile，要用exit再重新ssh gbean)**  
+
 \$ podman ps –a  
 會發現不會有rbean的container，每個使用者有自己獨立的環境  
-\$ mkdir html; echo "\<h1>Rootless Container\</h1>" > html/index.html
-\$ podman run --rm -d --publish 8081:80 --volume \${PWD}/html:/usr/share/nginx/html nginx
+
+\$ mkdir html; echo "\<h1>Rootless Container\</h1>" > html/index.html  
+\$ podman run --rm -d --publish 8081:80 --volume \${PWD}/html:/usr/share/nginx/html nginx  
 **(因為rbean跟gbean都是用US2004開出來的帳號，8080是rbean用的，所以2台port號不可以一樣)**
 
 
@@ -320,11 +322,16 @@ rbean      30450  0.0  0.0   2576  1716 pts/0    S    00:21   0:00 /usr/bin/slir
 $ podman rm -f a1 a2
 ```
 
+### Podman Rootless Container Network
+
+**podman rootless自建網路可以用名字互相ping，   
+但是podman rootful的自建網路不行喔**  
+
+:arrow_right: rootless可以建立網路但沒有虛擬橋接器(bridge)，建立虛擬橋接器不可以用普通使用者創建虛擬橋機器，必須是要用外部強大的root權限才可以創建
 
 ```
-$ podman network create --driver=bridge --subnet=192.168.188.0/24 --gateway=192.168.188.254  mynet2
+$ podman network create --subnet=192.168.188.0/24 --gateway=192.168.188.254  mynet2
 /home/rbean/.config/cni/net.d/mynet2.conflist  
-(rootless可以建立網路但沒有虛擬橋接器(bridge)，建立虛擬橋接器不可以用普通使用者創建虛擬橋機器，必須是要用外部強大的root權限才可以創建)  
 
 $ podman network ls
 (確認網路是否有建立成功)  
@@ -396,6 +403,7 @@ $ podman run -d --pod mypod nginx
 (共有3個container (pause/alpine/nginx))
 
 $ podman exec -it cdcb sh
+(因為Container共用網路卡，所以登入alpine去curl自己的ip就能看到在同一個pod裡的container起的網站，主要是想證明同一個pod裡是共用網路介面)  
 / # apk add curl
 / # curl http://localhost
 <!DOCTYPE html>
@@ -403,8 +411,6 @@ $ podman exec -it cdcb sh
 <head>
 <title>Welcome to nginx!</title>
 ..........
-
-(因為Container共用網路卡，所以登入alpine去curl自己的ip就能看到在同一個pod裡的container起的網站，主要是想證明同一個pod裡是共用網路介面)
 
 / # exit
 

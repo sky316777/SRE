@@ -28,14 +28,14 @@ server解析電腦名稱，會動態修改電腦名稱或ip位置
 ---
 ## :page_facing_up: 目錄 :  
 
-[1.指令集](https://)  
-[2.pod](https://)  
-[3.volume](https://)  
-[4.deployment](https://)  
-[5.service](https://)  
-[6.帳號管理憑證](https://)  
-[7.RBAC](https://)  
-[8.context 遠端操作](https://)  
+[1.指令集](https://github.com/sky316777/work/blob/main/kubernetes.md#earth_africa-kubectl-%E6%8C%87%E4%BB%A4%E9%9B%86)  
+[2.pod](https://github.com/sky316777/work/blob/main/kubernetes.md#sauropod-pod)  
+[3.volume](https://github.com/sky316777/work/blob/main/kubernetes.md#mosque-volume)  
+[4.deployment](https://github.com/sky316777/work/blob/main/kubernetes.md#heavy_plus_sign-deployment)  
+[5.service](https://github.com/sky316777/work/blob/main/kubernetes.md#baby_chick-service)  
+[6.帳號管理憑證](https://github.com/sky316777/work/blob/main/kubernetes.md#adult-k8s-%E5%B8%B3%E8%99%9F%E7%AE%A1%E7%90%86%E6%86%91%E8%AD%89)  
+[7.RBAC](https://github.com/sky316777/work/blob/main/kubernetes.md#mag_right-rbac-role-based-access-control)  
+[8.context 遠端操作](https://github.com/sky316777/work/blob/main/kubernetes.md#bookmark_tabs-k8s-contexts)  
 
 ---
 

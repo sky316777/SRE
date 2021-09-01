@@ -1,16 +1,22 @@
 # AI
 
-![Uploading file..._n4a1my7jh]()
-![Uploading file..._dg10ko6j9]()
-![](https://i.imgur.com/PVOdz9e.png)
-![](https://i.imgur.com/EoPmDQz.png)
-![Uploading file..._ycgvsr4so]()
-![Uploading file..._6hs6ef16g]()
-![Uploading file..._hfarzq9d9]()
-![Uploading file..._se9ds9sbu]()
-![Uploading file..._l5f2x73lk]()
-![Uploading file..._se1t0n3ap]()
-![Uploading file..._ets0ebpfb]()
-![](https://i.imgur.com/lixQyio.png)
+
+![](https://i.imgur.com/3qbftwR.png)
+![](https://i.imgur.com/P4SaQd1.png)
+![](https://i.imgur.com/2bHyT83.png)
+![](https://i.imgur.com/BQf6kgS.png)
+![](https://i.imgur.com/OY9frRR.png)
+![](https://i.imgur.com/ctDecHF.png)
+![](https://i.imgur.com/CWKdycg.png)
+![](https://i.imgur.com/CWKdycg.png)
+![](https://i.imgur.com/J4JW0fo.png)
+![](https://i.imgur.com/WCJCiEm.png)
+![](https://i.imgur.com/5bezay1.png)
+
+
+![](https://i.imgur.com/yRbT0Jy.png)
+
+![](https://i.imgur.com/YFj8KyX.png)
+
 
 

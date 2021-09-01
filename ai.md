@@ -1,5 +1,12 @@
 # AI
 
+![](https://i.imgur.com/Io6WM2q.png)
+![](https://i.imgur.com/Z6iYuQw.png)
+![](https://i.imgur.com/Vcrpjix.png)
+![](https://i.imgur.com/8KrXhTJ.png)
+![](https://i.imgur.com/qitlhqO.png)
+![](https://i.imgur.com/BXRkeSt.png)
+
 
 ![](https://i.imgur.com/3qbftwR.png)
 ![](https://i.imgur.com/P4SaQd1.png)
@@ -45,3 +52,5 @@
 ![](https://i.imgur.com/AC7Uj77.png)
 ![](https://i.imgur.com/2RSkkpa.jpg)
 ![](https://i.imgur.com/bcFGxga.jpg)
+
+

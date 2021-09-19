@@ -1,6 +1,6 @@
 # AI
 
-![](https://i.imgur.com/Io6WM2q.png)
+hi
 ![](https://i.imgur.com/Z6iYuQw.png)
 ![](https://i.imgur.com/Vcrpjix.png)
 ![](https://i.imgur.com/8KrXhTJ.png)
@@ -54,4 +54,5 @@
 ![](https://i.imgur.com/bcFGxga.jpg)
 
 ![](https://i.imgur.com/f7Qf5GO.png)
+![](https://i.imgur.com/dZzy9R3.jpg)
 
